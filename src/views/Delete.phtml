@@ -1,0 +1,18 @@
+<?php 
+$article = $params['article'];
+?>
+<h1 style="margin-top: 7rem; margin-bottom: 2rem;">Are you sure deleting the article?</h1>
+
+<div style="display: block; margin-bottom: 2rem;" >
+    <a href="<?= "/" . $article['slug']; ?>">
+        <h2 class="post-title"><?= esc($article['title']); ?></h2>
+        <h3 style="overflow-wrap: anywhere;" class="post-subtitle"><?= esc($article['introduction']); ?></h3>
+    </a> 
+</div>
+
+<div style="flex: 0 0 auto">
+    <a href="/"><button class="btn btn-warning">Back</button></a>
+    <form style="display:inline" method="POST" action="/deleteServer/<?= $article['slug']; ?>" >
+        <button style="height: max-content" class="btn btn-danger">Delete</button>
+    </form>
+</div>

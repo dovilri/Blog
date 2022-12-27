@@ -1,0 +1,50 @@
+<?php 
+if(isset($_SESSION['validation'])): ?>
+  <div style="margin-top: 5rem;" class="alert alert-danger" role="alert">
+    <?php foreach( $_SESSION['validation'] as $info): ?>
+      <li><?= $info ?></li>
+    <?php endforeach; ?>
+  </div>
+  <?php unset($_SESSION['validation']);
+endif;
+    
+if(isset($_SESSION['success'])): ?>   
+  <div style="margin-top: 5rem;" class="alert alert-success" role="alert">
+    <?= $_SESSION['success']; ?>
+  </div>
+  <?php unset($_SESSION['success']);
+endif;
+?>
+
+
+<form method="POST"  action="/editServer/<?= $params['article']['slug'] ?>" style="margin-top: 5rem;" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name of article</label>
+    <input type="text" name="title" class="form-control" id="name" minlength="5" maxlength="30" required aria-describedby="Name of article" value="<?= esc($params['article']['title']); ?>">
+  </div>
+
+  <div class="mb-3">
+    <label for="introduction" class="form-label">Introduction of article</label>
+    <input type="text" name="introduction" name="" class="form-control" id="introduction" minlength="5" maxlength="30" required aria-describedby="Introduction of article" value="<?= esc($params['article']['introduction']); ?>">
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Content of article</label>
+    <textarea name="content" class="form-control" id="content" rows="3" minlength="30" maxlength="500" aria-describedby="Content of article"><?= $params['article']['content']; ?></textarea>
+  </div>
+
+
+  <img src="/public/assets/img/<?= $params['article']['picture']; ?>" style="height: 15rem;" class="img-thumbnail rounded" alt="Image of article">
+
+  <div>
+    <label for="image" class="form-label">Add image</label>
+    <input class="form-control form-control-lg" id="image" name="uploadimage" type="file" >
+  </div>
+
+  <button style="margin-top: 2rem;" type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+<script>
+  ClassicEditor.create(document.querySelector('#content'));
+</script>

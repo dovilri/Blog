@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+
+  RewriteCond %{REQUEST_URI} ^.*public/(.*)
+  RewriteRule ^(.*)$ src/public/%1 [END]
+
+
+  RewriteRule (.*)  src/index.php [QSA]
+</IfModule>

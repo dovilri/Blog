@@ -1,0 +1,60 @@
+        <?php if(isset($_SESSION['success'])): ?>   
+            <div style="margin-top: 5rem;" class="alert alert-success" role="alert">
+                <?= $_SESSION['success']; ?>
+            </div>
+            <?php unset($_SESSION['success']);
+        endif; ?>    
+        
+        
+        <!-- Page Header-->
+        <header class="masthead">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>My blog website</h1>
+                            <span class="subheading">It is super!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+
+                    <?php
+                    $articles = $params['articles'];
+                    $keys = array_keys($articles);
+                    $last_key = end($keys);
+                    foreach($articles as $key => $article): ?>
+
+                        <!-- Post preview-->
+                        <div style="display: flex; align-items: center;" class="post-preview">
+                                <a style="display: block; flex:1; align-self: flex-start;" href="<?= "/" . $article['slug']; ?>">  
+                                    <h2 class="post-title"><?= esc($article['title']); ?></h2>
+                                    <h3 style="overflow-wrap: anywhere;" class="post-subtitle"><?= esc($article['introduction']); ?></h3>
+                                    <p class="post-meta">Wrote by <?= $article['creator']; ?> <?= $article['created_at']; ?></p>
+                                </a>
+                                <div  style="flex: 0 0 auto; align-self: flex-start;">
+                                    <img src="<?= 'public/assets/img/' . $article['picture']; ?>" style="max-width: 15rem" alt="Picture of article">
+                                </div>
+                            <?php if(isLoggedin()): ?>
+                            <div style="flex: 0 0 auto; align-self: flex-start">
+                                <a href="/edit/<?= $article['slug']; ?>"><button style="height: max-content" class="btn btn-warning">Edit</button></a>
+                                <a href="/delete/<?= $article['slug']; ?>"><button style="height: max-content" class="btn btn-danger">Delete</button></a>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <?php if($key !== $last_key): ?>
+                            <!-- Divider-->
+                            <hr class="my-1" />      
+                        <?php endif; ?>          
+                        
+                    <?php endforeach; ?>
+                    
+                </div>
+            </div>
+        </div>
